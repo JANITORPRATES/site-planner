@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Consulta de CEP</title>
+</head>
+<body>
+  <div>
+    <h2>Consulta de CEP</h2>
+    <div class="card">
+      <address>
+        <div class="frm-group">
+          <label>CEP</label>
+          <input type="text" name="cep" id="cepInput" maxlength="8">
+        </div>
+        <label for="cidade">Cidade:</label>
+        <input type="text" name="cidade" id="cidade" readonly>
+      </address>
+    </div>
+  </div>
+
+  <script>
+    const cep = document.querySelector("input[name=cep");
+    const cidadeInput = document.querySelector("input[name=cidade");
+
+    cep.addEventListener('input', e => {
+      if (cep.value.length === 8) {
+        const value = cep.value.replace(/[^0-9]+/, '');
+        const url = `https://viacep.com.br/ws/${value}/json/`;
+
+        fetch(url)
+          .then(response => response.json())
+          .then(json => {
+            if (json.localidade) {
+              cidadeInput.value = json.localidade;
+            } else {
+              cidadeInput.value = "Cidade não encontrada";
+            }
+          })
+          .catch(error => {
+            cidadeInput.value = "Erro na consulta";
+          });
+      }
+    });
+  </script>
+</body>
+</html>

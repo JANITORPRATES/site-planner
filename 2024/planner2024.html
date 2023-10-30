@@ -6688,14 +6688,34 @@
 
 
                                                 <div id="openModal" class="elementor-button-wrapper">
-                                                    <a href="https://pay.kiwify.com.br/JVTjYLg" target="_blank"
+                                                    <a id="openModalLink" target="_blank"
                                                         class="elementor-button-link elementor-button elementor-size-xs"
                                                         role="button"> <span class="elementor-button-content-wrapper">
                                                             <span class="elementor-button-text">QUERO MUDAR MINHA VIDA
                                                                 FINANCEIRA</span> </span>
                                                     </a>
                                                 </div>
-      
+                                                 <!-- Modal (você pode personalizar este modal) -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h2>Meu Modal</h2>
+      <p>Conteúdo do modal</p>
+    </div>
+  </div>
+                                                <script>
+                                                    const openModalLink = document.getElementById("openModalLink");
+                                                    const closeModalButton = document.getElementById("closeModal");
+                                                    const modal = document.getElementById("myModal");
+                                                
+                                                    openModalLink.addEventListener("click", function () {
+                                                      modal.style.display = "block"; // Abre o modal
+                                                    });
+                                                
+                                                    closeModalButton.addEventListener("click", function () {
+                                                      modal.style.display = "none"; // Fecha o modal
+                                                    });
+                                                  </script>
 
                                             </div>
                                         </div>

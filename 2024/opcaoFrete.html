@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Modal Transparente Recursivo</title>
+  <title>Sua localização</title>
   <style>
     .modal {
       display: none;
@@ -34,7 +34,6 @@
 </head>
 
 <body>
-  <button id="openModal">Abrir Modal</button>
   <div class="modal" id="myModal">
     <div class="modal-content">
       <style>
@@ -158,6 +157,7 @@
 
         .button--full {
           inline-size: 100%;
+          display: none;
         }
 
         .card {
@@ -173,7 +173,7 @@
         }
 
         .form__radios {
-          display: grid;
+          display: none;
           gap: 1em;
         }
 
@@ -182,15 +182,15 @@
           background-color: #fefdfe;
           border-radius: 1em;
           box-shadow: 0 0 1em rgba(0, 0, 0, 0.0625);
-          display: flex;
           padding: 1em;
+          display: none;
         }
 
         .form__radio label {
           align-items: center;
-          display: flex;
           flex: 1;
           gap: 1em;
+          display: flex;
         }
 
         .header {
@@ -235,116 +235,109 @@
 
         <div class="iphone">
           <header class="header">
-            <h1>Checkout</h1>
+            <h1></h1>
           </header>
 
           <form action="https://httpbin.org/post" class="form" method="POST">
             <div>
               <h2>Qual a sua localização?</h2>
 
+
               <div class="card">
                 <address>
-                  Veja os melhores valores de frete e entregas mais rápidas.
+                  <div class="frm-group">
+                    <label>CEP :</label>
+                    <input type="text" name="cep" maxlength="8" id="cepInput" style="color: black; " />
+                  </div>
+                  <label for="cidade" style="color: var(--color-primary); ">Cidade:</label>
+                  <input type="text" name="cidade" id="cidade" style="background-color: var(--color-primary);" readonly>
                 </address>
               </div>
             </div>
 
             <fieldset>
-              <legend>Payment Method</legend>
+              <legend>Veja os melhores valores de frete e selecione a que for melhor para você.</legend>
 
-              <div class="form__radios">
-                <div class="form__radio">
-                  <label for="visa"><svg class="icon">
+              <div id="fretes" class="form__radios">
+                <div id="freteGratis" class="form__radio">
+                  <label id="labelGratis" for="visa"><svg class="icon">
 
-                    </svg>Frete Gratis</label>
+                    </svg>Frete Gratis (Para combinar a entrega pelo WhatsApp (77) 98878-2513)</label>
                   <input checked id="visa" name="payment-method" type="radio" />
                 </div>
 
-                <div class="form__radio">
+                <div id="freteFixo" class="form__radio">
                   <label for="paypal"><svg class="icon">
 
-                    </svg>Registro simplificado</label>
+                    </svg>Correios sem rastreio - R$ 15,00</label>
                   <input id="paypal" name="payment-method" type="radio" />
                 </div>
 
-                <div class="form__radio">
+              
+                <div id="freteSedex" class="form__radio">
                   <label for="mastercard"><svg class="icon">
 
-                    </svg>Frete PAC</label>
-                  <input id="mastercard" name="payment-method" type="radio" />
-                </div>
-                <div class="form__radio">
-                  <label for="mastercard"><svg class="icon">
-
-                    </svg>Frete SEDEX</label>
+                    </svg>Correios PAC ou SEDEX (Valor será calculado em seguida)</label>
                   <input id="mastercard" name="payment-method" type="radio" />
                 </div>
               </div>
             </fieldset>
-
-
-
-            <div>
-              <button class="button button--full" type="submit"><svg class="icon">
-                  <use xlink:href="#icon-shopping-bag" />
-                </svg>INICIAR COMPRA</button>
-            </div>
           </form>
         </div>
       </div>
-
-      <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
-
-        <symbol id="icon-shopping-bag" viewBox="0 0 24 24">
-          <path
-            d="M20 7h-4v-3c0-2.209-1.791-4-4-4s-4 1.791-4 4v3h-4l-2 17h20l-2-17zm-11-3c0-1.654 1.346-3 3-3s3 1.346 3 3v3h-6v-3zm-4.751 18l1.529-13h2.222v1.5c0 .276.224.5.5.5s.5-.224.5-.5v-1.5h6v1.5c0 .276.224.5.5.5s.5-.224.5-.5v-1.5h2.222l1.529 13h-15.502z" />
-        </symbol>
-
-
-
-
-
-      </svg>
     </div>
-
-
-    <!--
-    <div class="modal-content">
-        <span class="close" id="closeModal">&times;</span>
-        <h2>Meu Modal</h2>
-        <p>Conteúdo do modal</p>
-        <button id="openNestedModal">Abrir Modal Aninhado</button>
-    </div>
-    -->
   </div>
   <script>
-    document.getElementById('openModal').addEventListener('click', function () {
-      document.getElementById('myModal').style.display = 'block';
+
+    
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // This code will be executed when the page is fully loaded
+      document.getElementById("myModal").style.display = "block";
+  
     });
 
     document.getElementById('closeModal').addEventListener('click', function () {
       document.getElementById('myModal').style.display = 'none';
     });
 
-    document.getElementById('openNestedModal').addEventListener('click', function () {
-      // Criar um novo modal aninhado
-      var nestedModal = document.createElement('div');
-      nestedModal.className = 'modal';
-      nestedModal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close" id="closeNestedModal">&times;</span>
-                    <h2>Meu Modal Aninhado</h2>
-                    <p>Conteúdo do modal aninhado</p>
-                </div>
-            `;
-      document.body.appendChild(nestedModal);
+  </script>
+  <script>
+    const cep = document.querySelector("input[name=cep");
+    const cidadeInput = document.querySelector("input[name=cidade");
 
-      document.getElementById('closeNestedModal').addEventListener('click', function () {
-        // Fechar o modal aninhado
-        document.body.removeChild(nestedModal);
-      });
+    cep.addEventListener('input', e => {
+      if (cep.value.length === 8) {
+        const value = cep.value.replace(/[^0-9]+/, '');
+        const url = `https://viacep.com.br/ws/${value}/json/`;
+
+        fetch(url)
+          .then(response => response.json())
+          .then(json => {
+            if (json.localidade) {
+              cidadeInput.value = json.localidade + " / " + json.uf;
+              document.getElementById("fretes").style.display = "grid";
+              document.getElementById("freteFixo").style.display = "flex";
+              document.getElementById("freteSedex").style.display = "flex";
+              if(value === "46300000" || value === "46390000" || value === 46220000 
+              || value === "46430000" || value === "46330000" || value === "46315000"){
+                document.getElementById("freteGratis").style.display = "flex";
+              }
+            } else {
+              cidadeInput.value = "CEP não encontrada";
+            }
+          })
+          .catch(error => {
+            cidadeInput.value = "Erro na consulta verifique o CEP digitado";
+          });
+      } else {
+        cidadeInput.value = "";
+        document.getElementById("fretes").style.display = "none";
+
+      }
     });
   </script>
+
 </body>
 
 </html>

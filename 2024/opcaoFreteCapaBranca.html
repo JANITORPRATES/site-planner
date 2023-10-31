@@ -17,6 +17,9 @@
     }
 
     .modal-content {
+      background-image: url("https://pallomaguimaraes.com.br/planner/2024_4.png");   
+      background-repeat: no-repeat;
+      background-size: cover;
       background-color: #fff;
       padding: 20px;
       border: 1px solid #ccc;
@@ -42,11 +45,12 @@
         }
 
         :root {
-          --color-background: #fae3ea;
+          --color-background: #e3e5fa;
           --color-primary: #fc8080;
           --font-family-base: Poppin, sans-serif;
           --font-size-h1: 1.25rem;
           --font-size-h2: 1rem;
+
         }
 
 
@@ -56,6 +60,7 @@
 
         html {
           box-sizing: border-box;
+          
         }
 
         body {
@@ -67,18 +72,14 @@
           min-block-size: 100vh;
           padding: 5vmin;
           place-items: center;
+          
         }
 
         address {
           font-style: normal;
         }
 
-        button {
-          border: 0;
-          color: inherit;
-          cursor: pointer;
-          font: inherit;
-        }
+
 
         fieldset {
           border: 0;
@@ -137,29 +138,6 @@
           place-items: center;
         }
 
-        .button {
-          align-items: center;
-          background-color: var(--color-primary);
-          border-radius: 999em;
-          color: #fff;
-          display: flex;
-          gap: 0.5em;
-          justify-content: center;
-          padding-block: 0.75em;
-          padding-inline: 1em;
-          transition: 0.3s;
-        }
-
-        .button:focus,
-        .button:hover {
-          background-color: #e96363;
-        }
-
-        .button--full {
-          inline-size: 100%;
-          display: none;
-        }
-
         .card {
           border-radius: 1em;
           background-color: var(--color-primary);
@@ -168,7 +146,7 @@
         }
 
         .form {
-          display: grid;
+          display: cover;
           gap: 2em;
         }
 
@@ -238,11 +216,8 @@
             <h1></h1>
           </header>
 
-          <form action="https://httpbin.org/post" class="form" method="POST">
             <div>
               <h2>Qual a sua localização?</h2>
-
-
               <div class="card">
                 <address>
                   <div class="frm-group">
@@ -260,46 +235,93 @@
 
               <div id="fretes" class="form__radios">
                 <div id="freteGratis" class="form__radio">
-                  <label id="labelGratis" for="visa"><svg class="icon">
+                  <label id="labelGratis" for="radioFreteGratis"><svg class="icon">
 
-                    </svg>Frete Gratis (Para combinar a entrega pelo WhatsApp (77) 98878-2513)</label>
-                  <input checked id="visa" name="payment-method" type="radio" />
+                    </svg>Frete Gratis (Combine a entrega pelo WhatsApp (77) 98878-2513)</label>
+                  <input id="radioFreteGratis" name="opcoes" value="opcao1" type="radio" />
                 </div>
 
                 <div id="freteFixo" class="form__radio">
-                  <label for="paypal"><svg class="icon">
+                  <label for="radioFreteFixo"><svg class="icon">
 
                     </svg>Correios sem rastreio - R$ 15,00</label>
-                  <input id="paypal" name="payment-method" type="radio" />
+                  <input id="radioFreteFixo" name="opcoes" value="opcao2" type="radio" />
                 </div>
 
-              
+
                 <div id="freteSedex" class="form__radio">
-                  <label for="mastercard"><svg class="icon">
+                  <label for="radioFreteCalculado"><svg class="icon">
 
                     </svg>Correios PAC ou SEDEX (Valor será calculado em seguida)</label>
-                  <input id="mastercard" name="payment-method" type="radio" />
+                  <input id="radioFreteCalculado" name="opcoes" value="opcao3" type="radio" />
                 </div>
+                <div></div>
+                <div></div>
               </div>
             </fieldset>
-          </form>
+            <div class="text-center centered-button">
+              <style>
+                .centered-button {
+                  text-align: center;
+                }
+
+                .styled-button {
+                  background-color: #fc8080;
+                  color: #fff;
+                  padding: 10px 20px;
+                  border: none;
+                  border-radius: 5px;
+                  cursor: pointer;
+                  font-size: 18px;
+                }
+
+                .styled-button:hover {
+                  background-color: #ff5b5b;
+                }
+              </style>
+              <button id="botao" class="styled-button" style="text-decoration: none;" onclick="radioSelecionado()" >CONTINUAR</button>
+            </div>
+
+
         </div>
       </div>
+
     </div>
   </div>
   <script>
-
-    
-
     document.addEventListener("DOMContentLoaded", function () {
-      // This code will be executed when the page is fully loaded
       document.getElementById("myModal").style.display = "block";
-  
     });
 
     document.getElementById('closeModal').addEventListener('click', function () {
       document.getElementById('myModal').style.display = 'none';
     });
+
+    // Função para processar a seleção dos botões de rádio
+    function radioSelecionado() {
+      const radios = document.querySelectorAll('input[type="radio"]');
+      let selectedValue = '';
+
+      radios.forEach((radio) => {
+        if (radio.checked) {
+          selectedValue = radio.value;
+          document.getElementById("cepInput").value = "";
+        }
+      });
+
+      if (selectedValue === "opcao1") {
+        window.location.href = 'https://pag.ae/7ZWsBncTP';
+        document.getElementById("radioFreteGratis").checked = false;
+      } else if (selectedValue === "opcao2") {
+        window.location.href = 'https://pag.ae/7ZWsCKF4u';
+        document.getElementById("radioFreteFixo").checked = false;
+      } else if (selectedValue === "opcao3") {
+        window.location.href = 'https://pag.ae/7ZWsE5YS8';
+        document.getElementById("radioFreteCalculado").checked = false;
+      } else {
+        alert('Selecione uma opção de entrega');
+      }
+    }
 
   </script>
   <script>
@@ -309,6 +331,7 @@
     cep.addEventListener('input', e => {
       if (cep.value.length === 8) {
         const value = cep.value.replace(/[^0-9]+/, '');
+
         const url = `https://viacep.com.br/ws/${value}/json/`;
 
         fetch(url)
@@ -319,9 +342,11 @@
               document.getElementById("fretes").style.display = "grid";
               document.getElementById("freteFixo").style.display = "flex";
               document.getElementById("freteSedex").style.display = "flex";
-              if(value === "46300000" || value === "46390000" || value === 46220000 
-              || value === "46430000" || value === "46330000" || value === "46315000"){
+              if (value === "46300000" || value === "46390000" || value === 46220000
+                || value === "46430000" || value === "46330000" || value === "46315000") {
                 document.getElementById("freteGratis").style.display = "flex";
+              } else {
+                document.getElementById("freteGratis").style.display = "none";
               }
             } else {
               cidadeInput.value = "CEP não encontrada";
@@ -333,6 +358,10 @@
       } else {
         cidadeInput.value = "";
         document.getElementById("fretes").style.display = "none";
+        document.getElementById("radioFreteGratis").checked = false;
+        document.getElementById("radioFreteFixo").checked = false;
+        document.getElementById("radioFreteCalculado").checked = false;
+        
 
       }
     });

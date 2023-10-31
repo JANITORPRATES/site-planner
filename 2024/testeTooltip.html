@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Tooltip styles (you can customize these) */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltiptext {
+      visibility: hidden;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <form>
+    <label><input type="radio" name="option" value="option1"> Option 1</label><br>
+    <label><input type="radio" name="option" value="option2"> Option 2</label><br>
+    <label><input type="radio" name="option" value="option3"> Option 3</label><br>
+
+    <!-- Button to trigger the check and open Google -->
+    <button id="checkButton">Check Radio</button>
+
+    <!-- Tooltip element for alert -->
+    <div class="tooltip">
+      <span class="tooltiptext">Please select a radio option</span>
+    </div>
+  </form>
+
+  <script>
+    document.getElementById('checkButton').addEventListener('click', function() {
+      const radioButtons = document.querySelectorAll('input[type="radio"]');
+      let checked = false;
+
+      for (let i = 0; i < radioButtons.length; i++) {
+        if (radioButtons[i].checked) {
+          checked = true;
+          break;
+        }
+      }
+
+      if (!checked) {
+        // Show the tooltip alert
+        const tooltip = document.querySelector('.tooltiptext');
+        tooltip.style.visibility = 'visible';
+        tooltip.style.opacity = 1;
+      } else {
+        // Hide the tooltip alert
+        const tooltip = document.querySelector('.tooltiptext');
+        tooltip.style.visibility = 'hidden';
+        tooltip.style.opacity = 0;
+
+        // Open Google if a radio button is selected
+        window.location.href = "http://www.google.com.br";
+      }
+    });
+  </script>
+</body>
+</html>

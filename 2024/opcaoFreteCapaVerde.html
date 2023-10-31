@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sua localização</title>
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      top: 10;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      /* Fundo transparente */
+    }
+
+    .modal-content {
+      background-image: url("https://pallomaguimaraes.com.br/planner/capaVerdeDuplicada.png");   
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-color: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="modal" id="myModal">
+    <div class="modal-content">
+      <style>
+        @use postcss-preset-env {
+          stage: 0;
+        }
+
+        :root {
+          --color-background: #e3e5fa;
+          --color-primary: #fc8080;
+          --font-family-base: Poppin, sans-serif;
+          --font-size-h1: 1.25rem;
+          --font-size-h2: 1rem;
+
+        }
+
+
+        * {
+          box-sizing: content-box;
+        }
+
+        html {
+          box-sizing: border-box;
+          
+        }
+
+        body {
+          background-color: var(--color-background);
+          display: grid;
+          font-family: var(--font-family-base);
+          line-height: 1.5;
+          margin: 0;
+          min-block-size: 100vh;
+          padding: 5vmin;
+          place-items: center;
+          
+        }
+
+        address {
+          font-style: normal;
+        }
+
+
+
+        fieldset {
+          border: 0;
+          margin: 0;
+          padding: 0;
+        }
+
+        h1 {
+          font-size: var(--font-size-h1);
+          line-height: 1.2;
+          margin-block: 0 1.5em;
+        }
+
+        h2 {
+          font-size: var(--font-size-h2);
+          line-height: 1.2;
+          margin-block: 0 0.5em;
+        }
+
+        legend {
+          font-weight: 600;
+          margin-block-end: 0.5em;
+          padding: 0;
+        }
+
+        input {
+          border: 0;
+          color: inherit;
+          font: inherit;
+        }
+
+        input[type="radio"] {
+          accent-color: var(--color-primary);
+        }
+
+        table {
+          border-collapse: collapse;
+          inline-size: 100%;
+        }
+
+        tbody {
+          color: #b4b4b4;
+        }
+
+        td {
+          padding-block: 0.125em;
+        }
+
+        tfoot {
+          border-top: 1px solid #b4b4b4;
+          font-weight: 600;
+        }
+
+        .align {
+          display: grid;
+          place-items: center;
+        }
+
+        .card {
+          border-radius: 1em;
+          background-color: var(--color-primary);
+          color: #fff;
+          padding: 1em;
+        }
+
+        .form {
+          display: cover;
+          gap: 2em;
+        }
+
+        .form__radios {
+          display: none;
+          gap: 1em;
+        }
+
+        .form__radio {
+          align-items: center;
+          background-color: #fefdfe;
+          border-radius: 1em;
+          box-shadow: 0 0 1em rgba(0, 0, 0, 0.0625);
+          padding: 1em;
+          display: none;
+        }
+
+        .form__radio label {
+          align-items: center;
+          flex: 1;
+          gap: 1em;
+          display: flex;
+        }
+
+        .header {
+          display: flex;
+          justify-content: center;
+          padding-block: 0.5em;
+          padding-inline: 1em;
+        }
+
+        .icon {
+          block-size: 1em;
+          display: inline-block;
+          fill: currentColor;
+          inline-size: 1em;
+          vertical-align: middle;
+        }
+
+        .container {
+          position: relative;
+          width: 100%;
+          height: 100vh;
+        }
+
+        .iphone {
+          background-color: #fbf6f7;
+          background-image: linear-gradient(to bottom, #fbf6f7, #fff);
+          border-radius: 2em;
+          block-size: 712px;
+          box-shadow: 0 0 1em rgba(0, 0, 0, 0.0625);
+          inline-size: 375px;
+          overflow: auto;
+          padding: 2em;
+
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+
+        }
+      </style>
+      <div class="container">
+
+        <div class="iphone">
+          <header class="header">
+            <h1></h1>
+          </header>
+
+            <div>
+              <h2>Qual a sua localização?</h2>
+              <div class="card">
+                <address>
+                  <div class="frm-group">
+                    <label>CEP :</label>
+                    <input type="text" name="cep" maxlength="8" id="cepInput" style="color: black; " />
+                  </div>
+                  <label for="cidade" style="color: var(--color-primary); ">Cidade:</label>
+                  <input type="text" name="cidade" id="cidade" style="background-color: var(--color-primary);" readonly>
+                </address>
+              </div>
+            </div>
+
+            <fieldset>
+              <legend>Veja os melhores valores de frete e selecione a que for melhor para você.</legend>
+
+              <div id="fretes" class="form__radios">
+                <div id="freteGratis" class="form__radio">
+                  <label id="labelGratis" for="radioFreteGratis"><svg class="icon">
+
+                    </svg>Frete Gratis (Combine a entrega pelo WhatsApp (77) 98878-2513)</label>
+                  <input id="radioFreteGratis" name="opcoes" value="opcao1" type="radio" />
+                </div>
+
+                <div id="freteFixo" class="form__radio">
+                  <label for="radioFreteFixo"><svg class="icon">
+
+                    </svg>Correios sem rastreio - R$ 15,00</label>
+                  <input id="radioFreteFixo" name="opcoes" value="opcao2" type="radio" />
+                </div>
+
+
+                <div id="freteSedex" class="form__radio">
+                  <label for="radioFreteCalculado"><svg class="icon">
+
+                    </svg>Correios PAC ou SEDEX (Valor será calculado em seguida)</label>
+                  <input id="radioFreteCalculado" name="opcoes" value="opcao3" type="radio" />
+                </div>
+                <div></div>
+                <div></div>
+              </div>
+            </fieldset>
+            <div class="text-center centered-button">
+              <style>
+                .centered-button {
+                  text-align: center;
+                }
+
+                .styled-button {
+                  background-color: #fc8080;
+                  color: #fff;
+                  padding: 10px 20px;
+                  border: none;
+                  border-radius: 5px;
+                  cursor: pointer;
+                  font-size: 18px;
+                }
+
+                .styled-button:hover {
+                  background-color: #ff5b5b;
+                }
+              </style>
+              <button id="botao" class="styled-button" style="text-decoration: none;" onclick="radioSelecionado()" >CONTINUAR</button>
+            </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("myModal").style.display = "block";
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function () {
+      document.getElementById('myModal').style.display = 'none';
+    });
+
+    // Função para processar a seleção dos botões de rádio
+    function radioSelecionado() {
+      const radios = document.querySelectorAll('input[type="radio"]');
+      let selectedValue = '';
+
+      radios.forEach((radio) => {
+        if (radio.checked) {
+          selectedValue = radio.value;
+          document.getElementById("cepInput").value = "";
+        }
+      });
+
+      if (selectedValue === "opcao1") {
+        window.location.href = 'https://pag.ae/7ZWrTenG8';
+        document.getElementById("radioFreteGratis").checked = false;
+      } else if (selectedValue === "opcao2") {
+        window.location.href = 'https://pag.ae/7ZWrUNq2P';
+        document.getElementById("radioFreteFixo").checked = false;
+      } else if (selectedValue === "opcao3") {
+        window.location.href = 'https://pag.ae/7ZWrVzN18';
+        document.getElementById("radioFreteCalculado").checked = false;
+      } else {
+        alert('Selecione uma opção de entrega');
+      }
+    }
+
+  </script>
+  <script>
+    const cep = document.querySelector("input[name=cep");
+    const cidadeInput = document.querySelector("input[name=cidade");
+
+    cep.addEventListener('input', e => {
+      if (cep.value.length === 8) {
+        const value = cep.value.replace(/[^0-9]+/, '');
+
+        const url = `https://viacep.com.br/ws/${value}/json/`;
+
+        fetch(url)
+          .then(response => response.json())
+          .then(json => {
+            if (json.localidade) {
+              cidadeInput.value = json.localidade + " / " + json.uf;
+              document.getElementById("fretes").style.display = "grid";
+              document.getElementById("freteFixo").style.display = "flex";
+              document.getElementById("freteSedex").style.display = "flex";
+              if (value === "46300000" || value === "46390000" || value === 46220000
+                || value === "46430000" || value === "46330000" || value === "46315000") {
+                document.getElementById("freteGratis").style.display = "flex";
+              } else {
+                document.getElementById("freteGratis").style.display = "none";
+              }
+            } else {
+              cidadeInput.value = "CEP não encontrada";
+            }
+          })
+          .catch(error => {
+            cidadeInput.value = "Erro na consulta verifique o CEP digitado";
+          });
+      } else {
+        cidadeInput.value = "";
+        document.getElementById("fretes").style.display = "none";
+        document.getElementById("radioFreteGratis").checked = false;
+        document.getElementById("radioFreteFixo").checked = false;
+        document.getElementById("radioFreteCalculado").checked = false;
+        
+
+      }
+    });
+  </script>
+
+</body>
+
+</html>
